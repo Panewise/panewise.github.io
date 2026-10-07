@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Panewise is an independent studio building browser extensions that remove repetitive work from tools businesses already use.">
+<meta name="color-scheme" content="light dark">
+<title>Panewise</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper:      #F1F3F2;
+    --surface:    #FAFBFA;
+    --ink:        #15211F;
+    --ink-soft:   #566761;
+    --line:       #D5DCD8;
+    --petrol:     #0D5C54;
+    --ochre:      #8F5B15;
+    --pill-bg:    #E3E9E5;
+
+    --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+    --body:    "Source Sans 3", system-ui, -apple-system, sans-serif;
+    --mono:    "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:    #111917;
+      --surface:  #1A2522;
+      --ink:      #E7EDE9;
+      --ink-soft: #9AAAA4;
+      --line:     #2A3833;
+      --petrol:   #5CBCAC;
+      --ochre:    #D79B4E;
+      --pill-bg:  #223029;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:    #111917;
+    --surface:  #1A2522;
+    --ink:      #E7EDE9;
+    --ink-soft: #9AAAA4;
+    --line:     #2A3833;
+    --petrol:   #5CBCAC;
+    --ochre:    #D79B4E;
+    --pill-bg:  #223029;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin: 0;
+    padding-inline: 24px;
+    padding-block: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 44rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+    padding-block: 5rem 4rem;
+  }
+
+  .masthead { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-optical-sizing: auto;
+    font-size: clamp(2.75rem, 9vw, 4.25rem);
+    font-weight: 700;
+    letter-spacing: -0.028em;
+    line-height: 0.95;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  h1 .mark { color: var(--petrol); }
+
+  .lead {
+    font-size: 1.3125rem;
+    line-height: 1.45;
+    color: var(--ink);
+    margin: 0;
+    max-width: 34ch;
+    text-wrap: pretty;
+  }
+
+  section { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0;
+    padding-bottom: 0.875rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    margin: 0 0 0.3rem;
+  }
+
+  p { margin: 0; max-width: 62ch; text-wrap: pretty; }
+  .soft { color: var(--ink-soft); }
+
+  .stack { display: flex; flex-direction: column; gap: 1.75rem; }
+
+  .tenet {
+    padding-left: 1.125rem;
+    border-left: 2px solid var(--petrol);
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 0.875rem 1.5rem;
+    margin: 0;
+  }
+
+  .facts dt {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--ochre);
+    padding-top: 0.15rem;
+  }
+
+  .facts dd { margin: 0; }
+
+  @media (max-width: 34rem) {
+    .facts { grid-template-columns: 1fr; gap: 0.25rem 0; }
+    .facts dd { margin-bottom: 1rem; }
+  }
+
+  .phases { display: flex; flex-direction: column; gap: 0; margin: 0; padding: 0; list-style: none; }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr auto;
+    align-items: baseline;
+    gap: 0 1rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .phase:last-child { border-bottom: 1px solid var(--line); }
+
+  .phase-num {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .phase-name { font-weight: 600; }
+  .phase[data-state="pending"] .phase-name { font-weight: 400; color: var(--ink-soft); }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .pill[data-state="active"]  { background: var(--petrol); color: var(--paper); }
+  .pill[data-state="pending"] { background: var(--pill-bg); color: var(--ink-soft); }
+
+  @media (max-width: 30rem) {
+    .phase { grid-template-columns: 2rem 1fr; }
+    .pill { grid-column: 2; justify-self: start; margin-top: 0.4rem; }
+  }
+
+  a { color: var(--petrol); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 3px; border-radius: 2px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Independent software studio &middot; Serbia</p>
+    <h1>Pane<span class="mark">wise</span></h1>
+    <p class="lead">Browser extensions that take the repetition out of tools your team already uses all day.</p>
+  </header>
+
+  <section>
+    <h2>What we build</h2>
+    <div class="stack">
+      <div class="tenet">
+        <h3>One task, done properly</h3>
+        <p class="soft">Narrow tools rather than suites. Each extension removes a single recurring action &mdash; nothing to configure, no dashboard to learn.</p>
+      </div>
+      <div class="tenet">
+        <h3>Made for work, not browsing</h3>
+        <p class="soft">Built for people who repeat the same handful of clicks dozens of times a day because it is their job: operations, support, marketing, online sellers.</p>
+      </div>
+      <div class="tenet">
+        <h3>Free until it earns its keep</h3>
+        <p class="soft">Every extension has a free tier with a usage limit that genuinely covers light use. The paid plan lifts the limit. Monthly, cancel whenever.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it is built</h2>
+    <dl class="facts">
+      <dt>Platform</dt>
+      <dd>Chrome and Edge, on Manifest V3.</dd>
+
+      <dt>Permissions</dt>
+      <dd>An extension requests access only to the sites it actually works on &mdash; never all URLs for convenience.</dd>
+
+      <dt>Page data</dt>
+      <dd>What you see in your browser stays in your browser. We do not collect page content.</dd>
+
+      <dt>Billing</dt>
+      <dd>Subscriptions are handled by Lemon Squeezy as merchant of record, which covers VAT and sales tax wherever you are.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Where we are</h2>
+    <ol class="phases">
+      <li class="phase" data-state="active">
+        <span class="phase-num">01</span>
+        <span class="phase-name">First extension in development</span>
+        <span class="pill" data-state="active">Now</span>
+      </li>
+      <li class="phase" data-state="pending">
+        <span class="phase-num">02</span>
+        <span class="phase-name">Chrome Web Store review</span>
+        <span class="pill" data-state="pending">Next</span>
+      </li>
+      <li class="phase" data-state="pending">
+        <span class="phase-num">03</span>
+        <span class="phase-name">Public release, free tier open</span>
+        <span class="pill" data-state="pending">Then</span>
+      </li>
+    </ol>
+    <p class="soft">This page is deliberately plain about the stage we are at: the studio is new and the first product is not out yet. Nothing listed above is for sale today.</p>
+  </section>
+
+  <footer>
+    <p>Panewise &mdash; an independent one-person studio based in Serbia.</p>
+    <p>Enquiries: <a href="mailto:mitrovics0790@gmail.com">mitrovics0790@gmail.com</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
