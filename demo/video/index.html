@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gridpull — product demo</title>
+<meta name="description" content="A 33-second recording of Gridpull exporting a 237-row report spread across five pages.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #F1F3F2; --ink: #15211F; --ink-soft: #566761;
+    --line: #D5DCD8; --petrol: #0D5C54; --ochre: #8F5B15; --surface: #FFFFFF;
+    --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+    --body: "Source Sans 3", system-ui, -apple-system, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #111917; --ink: #E7EDE9; --ink-soft: #9AAAA4;
+      --line: #2A3833; --petrol: #5CBCAC; --ochre: #D79B4E; --surface: #1A2522;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #111917; --ink: #E7EDE9; --ink-soft: #9AAAA4;
+    --line: #2A3833; --petrol: #5CBCAC; --ochre: #D79B4E; --surface: #1A2522;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper); color: var(--ink); font-family: var(--body);
+    font-size: 1.0625rem; line-height: 1.6; margin: 0; padding-inline: 24px;
+  }
+
+  .wrap {
+    max-width: 58rem; margin-inline: auto; display: flex;
+    flex-direction: column; gap: 2.75rem; padding-block: 3.5rem 3rem;
+  }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--ink-soft); margin: 0 0 0.9rem;
+  }
+  .eyebrow a { color: inherit; }
+
+  h1 {
+    font-family: var(--display); font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;
+    margin: 0 0 0.6rem; text-wrap: balance;
+  }
+
+  .lead { font-size: 1.1875rem; margin: 0; max-width: 46ch; color: var(--ink-soft); text-wrap: pretty; }
+
+  video {
+    width: 100%; max-width: 100%; display: block; border-radius: 6px;
+    border: 1px solid var(--line); background: #000;
+  }
+
+  h2 {
+    font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-soft);
+    margin: 0 0 1.1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line);
+  }
+
+  ol.beats { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .beat {
+    display: grid; grid-template-columns: 4.5rem 1fr; gap: 0 1.25rem;
+    padding-block: 0.85rem; border-top: 1px solid var(--line); align-items: baseline;
+  }
+  .beat:last-child { border-bottom: 1px solid var(--line); }
+  .beat time {
+    font-family: var(--mono); font-size: 0.8125rem; color: var(--ochre);
+    font-variant-numeric: tabular-nums;
+  }
+  .beat p { margin: 0; max-width: 60ch; }
+
+  footer {
+    border-top: 1px solid var(--line); padding-top: 1.4rem;
+    font-size: 0.9375rem; color: var(--ink-soft);
+  }
+  a { color: var(--petrol); text-underline-offset: 0.2em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow"><a href="../../">Panewise</a> &middot; Gridpull</p>
+    <h1>Product demo</h1>
+    <p class="lead">Thirty-three seconds, no narration: a 237-row report that the page shows fifty rows at a time, exported in one file.</p>
+  </header>
+
+  <video controls preload="metadata" playsinline>
+    <source src="gridpull-demo.mp4" type="video/mp4">
+    Your browser cannot play this file. <a href="gridpull-demo.mp4">Download the MP4</a> instead.
+  </video>
+
+  <section>
+    <h2>What happens in the recording</h2>
+    <ol class="beats">
+      <li class="beat">
+        <time>0:00</time>
+        <p>A report of 237 invoices. The page shows 50 of them and hides the rest behind a pager &mdash; the ordinary shape of an internal business report.</p>
+      </li>
+      <li class="beat">
+        <time>0:04</time>
+        <p>Gridpull scans the page and finds the table, noting that more pages sit behind it.</p>
+      </li>
+      <li class="beat">
+        <time>0:08</time>
+        <p>On the free plan the export stops at 100 rows, and says so plainly rather than quietly truncating.</p>
+      </li>
+      <li class="beat">
+        <time>0:16</time>
+        <p>A licence key unlocks Pro, and the option to walk through every page becomes available.</p>
+      </li>
+      <li class="beat">
+        <time>0:24</time>
+        <p>Gridpull activates the page&rsquo;s own Next control five times, merges what it finds, and reports: <strong>237 rows from 5 pages</strong>.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Worth knowing</h2>
+    <p>Nothing in this recording is mocked up. It is the extension&rsquo;s real interface reading a real table, and the row count at the end is the actual number of rows collected. The page used is <a href="../">our public test report</a>, which anyone can open.</p>
+    <p style="margin-top:.85rem">Gridpull makes no network requests. The whole process runs inside the browser, and works with the machine offline.</p>
+  </section>
+
+  <footer>
+    <p>Panewise &mdash; an independent one-person studio based in Serbia. <a href="mailto:spartzor07@gmail.com">spartzor07@gmail.com</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
