@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gridwatch demo — order status board</title>
+<style>
+  body { font: 14px/1.5 "Segoe UI", system-ui, sans-serif; margin: 0; padding: 32px; background: #f6f7f6; color: #15211f; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { color: #566761; margin: 0 0 20px; }
+  table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #e3e8e5; }
+  th { background: #0d5c54; color: #fff; font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar { display: flex; gap: 10px; align-items: center; margin-top: 16px; }
+  .bar button { font: inherit; padding: 7px 14px; border: 1px solid #c9d2cd; background: #fff; border-radius: 3px; cursor: pointer; }
+  .bar button:hover { border-color: #0d5c54; }
+  .bar span { color: #566761; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Order status board</h1>
+  <p class="sub">A board of open orders, the kind that changes quietly overnight.<br>Try <strong>Gridwatch</strong> here: save a snapshot, press <em>Advance one day</em>, then press Compare. You should see 2 new orders, 1 gone and 3 changed.</p>
+
+  <table id="grid">
+    <caption style="caption-side: top; text-align: left; padding-bottom: 8px; font-weight: 600;">Open orders</caption>
+    <thead>
+      <tr><th>Order</th><th>Customer</th><th>Status</th><th>Owner</th><th class="num">Value</th></tr>
+    </thead>
+    <tbody id="body"></tbody>
+  </table>
+
+  <div class="bar">
+    <button id="advance">Advance one day</button>
+    <button id="reset">Reset</button>
+    <span id="dayLabel"></span>
+  </div>
+</div>
+
+<script>
+  const BASE = [
+    ['ORD-4401', 'Northwind Ltd',   'Packing',  'Ana',   '1240.00'],
+    ['ORD-4402', 'Contoso doo',     'Shipped',  'Marko', '880.00'],
+    ['ORD-4403', 'Adventure Works', 'Packing',  'Ana',   '2150.00'],
+    ['ORD-4404', 'Fabrikam SA',     'On hold',  'Jelena','640.00'],
+    ['ORD-4405', 'Litware GmbH',    'Shipped',  'Marko', '3100.00'],
+    ['ORD-4406', 'Proseware BV',    'New',      'Ana',   '470.00'],
+    ['ORD-4407', 'Tailspin Oy',     'Packing',  'Jelena','1990.00'],
+    ['ORD-4408', 'Northwind Ltd',   'New',      'Marko', '720.00']
+  ];
+
+  // Day 1: 4402 ships out (row gone), 4404 comes off hold and changes owner,
+  // 4406 moves to Packing, and two new orders arrive.
+  const DAY1 = (rows) => {
+    const out = rows.filter((r) => r[0] !== 'ORD-4402').map((r) => r.slice());
+    out.forEach((r) => {
+      if (r[0] === 'ORD-4404') { r[2] = 'Packing'; r[3] = 'Marko'; }
+      if (r[0] === 'ORD-4406') { r[2] = 'Packing'; }
+      if (r[0] === 'ORD-4403') { r[4] = '2290.00'; }
+    });
+    out.push(['ORD-4409', 'Fabrikam SA',  'New', 'Ana',    '1575.00']);
+    out.push(['ORD-4410', 'Litware GmbH', 'New', 'Jelena', '930.00']);
+    return out;
+  };
+
+  let day = 0;
+  let rows = BASE.map((r) => r.slice());
+
+  function render() {
+    document.getElementById('body').innerHTML = rows.map((r) =>
+      `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="num">${r[4]}</td></tr>`
+    ).join('');
+    document.getElementById('dayLabel').textContent =
+      day === 0 ? 'Showing today' : `Showing day ${day} — 2 new, 1 gone, 3 changed`;
+  }
+
+  document.getElementById('advance').addEventListener('click', () => {
+    if (day > 0) return;
+    rows = DAY1(rows);
+    day = 1;
+    render();
+  });
+
+  document.getElementById('reset').addEventListener('click', () => {
+    rows = BASE.map((r) => r.slice());
+    day = 0;
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>
